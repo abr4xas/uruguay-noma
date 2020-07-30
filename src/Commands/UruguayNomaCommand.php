@@ -4,6 +4,7 @@ namespace Abr4xas\UruguayNoma\Commands;
 
 use App\Models\Location;
 use App\Models\Departament;
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
@@ -34,7 +35,8 @@ class UruguayNomaCommand extends Command
 			while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
 
 				Departament::create([
-					'name' => $data[1]
+					'name' => $data[1],
+					'slug' => Str::slug($data[1], '-')
 				]);
 			}
 			fclose($handle);
@@ -55,7 +57,8 @@ class UruguayNomaCommand extends Command
 				$localidad = Location::firstOrCreate([
 					'departament_id' 	=> $departamento->id,
 					'name'            	=> $data[1],
-					'cp'              	=> $data[2]
+					'cp'              	=> $data[2],
+					'slug' 				=> Str::slug($data[1], '-')
 				]);
 			}
 			fclose($handle);

@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Location extends Model
 {
-	use SlugTrait;
-
 	/**
 	 * The attributes that are mass assignable.
 	 *
