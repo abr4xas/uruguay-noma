@@ -17,6 +17,7 @@ publica las migraciones y los archivos necesarios:
 
 ```bash
 php artisan vendor:publish --provider="Abr4xas\UruguayNoma\UruguayNomaServiceProvider" --tag="csv"
+php artisan vendor:publish --provider="Abr4xas\UruguayNoma\UruguayNomaServiceProvider" --tag="models"
 php artisan vendor:publish --provider="Abr4xas\UruguayNoma\UruguayNomaServiceProvider" --tag="migrations"
 php artisan migrate
 ```
