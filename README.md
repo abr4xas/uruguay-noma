@@ -41,7 +41,9 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 #### Credits
 
 - [angel cruz](https://github.com/abr4xas)
+- [Martin M.](https://github.com/skydiver)
 - [All Contributors](../../contributors)
+
 
 #### License
 
