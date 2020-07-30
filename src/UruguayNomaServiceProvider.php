@@ -30,6 +30,6 @@ class UruguayNomaServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/uruguay-noma.php', 'uruguay-noma');
+		//
     }
 }
