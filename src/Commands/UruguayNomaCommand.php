@@ -35,7 +35,7 @@ class UruguayNomaCommand extends Command
 			while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
 
 				Departament::create([
-					'name' => $data[1],
+					'name' => Str::upper($data[1]),
 					'slug' => Str::slug($data[1], '-')
 				]);
 			}
@@ -52,10 +52,8 @@ class UruguayNomaCommand extends Command
 
 			while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
 
-				$departamento = Departament::where('name', $data[0])->first();
-
-				$localidad = Location::firstOrCreate([
-					'departament_id' 	=> $departamento->id,
+				Location::firstOrCreate([
+					'departament_id' 	=> $data[0],
 					'name'            	=> $data[1],
 					'cp'              	=> $data[2],
 					'slug' 				=> Str::slug($data[1], '-')
