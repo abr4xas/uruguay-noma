@@ -1,7 +1,7 @@
 ### Comando para crear una tabla con los datos de departamentos y localidades de Uruguay
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/uruguay-noma.svg?style=flat-square)](https://packagist.org/packages/spatie/uruguay-noma)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/uruguay-noma.svg?style=flat-square)](https://packagist.org/packages/spatie/uruguay-noma)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/abr4xas/uruguay-noma.svg?style=flat-square)](https://packagist.org/packages/abr4xas/uruguay-noma)
+[![Total Downloads](https://img.shields.io/packagist/dt/abr4xas/uruguay-noma.svg?style=flat-square)](https://packagist.org/packages/abr4xas/uruguay-noma)
 
 
 
