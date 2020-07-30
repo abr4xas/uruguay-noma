@@ -2,6 +2,8 @@
 
 namespace Abr4xas\UruguayNoma\Commands;
 
+use App\Models\Location;
+use App\Models\Departament;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
