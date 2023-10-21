@@ -1,39 +1,32 @@
 <?php
 
-namespace Abr4xas\UruguayNoma;
+namespace ACdev\UruguayNoma;
 
-use Illuminate\Support\ServiceProvider;
-use Abr4xas\UruguayNoma\Commands\UruguayNomaCommand;
+use ACdev\UruguayNoma\Commands\UruguayNomaCommand;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class UruguayNomaServiceProvider extends ServiceProvider
+class UruguayNomaServiceProvider extends PackageServiceProvider
 {
-    public function boot()
+    public function configurePackage(Package $package): void
     {
-        if ($this->app->runningInConsole()) {
-
-            $this->publishes([
-                __DIR__.'/../storage/app' => base_path('storage/app'),
-            ], 'csv');
-
-			$this->publishes([
-				__DIR__ . '/../models' => base_path('app/Models'),
-			], 'models');
-
-            if (! class_exists('CreatePackageTable')) {
-                $this->publishes([
-                    __DIR__ . '/../database/migrations/create_uruguay_noma_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_uruguay_noma_table.php'),
-                ], 'migrations');
-            }
-
-            $this->commands([
-                UruguayNomaCommand::class,
-            ]);
-        }
-
+        /*
+         * This class is a Package Service Provider
+         *
+         * More info: https://github.com/spatie/laravel-package-tools
+         */
+        $package
+            ->name('uruguay-noma')
+            ->hasConfigFile()
+            ->hasViews()
+            ->hasMigration('create_uruguay-noma_table')
+            ->hasCommand(UruguayNomaCommand::class);
     }
 
-    public function register()
+    public function packageBooted()
     {
-		//
+        $this->publishes([
+            __DIR__.'/../storage/app' => base_path('storage/app'),
+        ], 'uruguay-noma-csv');
     }
 }
