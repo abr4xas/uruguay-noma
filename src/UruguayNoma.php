@@ -1,8 +1,7 @@
 <?php
 
-namespace Abr4xas\UruguayNoma;
+namespace ACdev\UruguayNoma;
 
 class UruguayNoma
 {
-	// @todo
 }

@@ -3,44 +3,34 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use ACdev\UruguayNoma\Models\Departament;
 
-class CreateUruguayNomaTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
         Schema::create('departaments', function (Blueprint $table) {
-            $table->bigIncrements('id');
-
+            $table->id('id');
 			$table->string('name')->unique();
 			$table->string('slug');
-
             $table->timestamps();
         });
 
 		Schema::create('locations', function (Blueprint $table) {
-            $table->bigIncrements('id');
-			$table->unsignedBigInteger('departament_id');
+            $table->id('id');
+
+            $table->foreignIdFor(Departament::class)->constrained();
 			$table->string('name');
 			$table->string('slug');
 			$table->integer('cp');
-
-
-			$table->foreign('departament_id')
-				->references('id')
-				->on('departaments');
 
 			$table->timestamps();
 		});
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
 	{
 		Schema::dropIfExists('locations');
         Schema::dropIfExists('departaments');
     }
-}
+};

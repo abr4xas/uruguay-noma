@@ -1,66 +1,57 @@
 <?php
 
-namespace Abr4xas\UruguayNoma\Commands;
+namespace ACdev\UruguayNoma\Commands;
 
-use App\Models\Location;
-use App\Models\Departament;
-use Illuminate\Support\Str;
+use ACdev\UruguayNoma\Models\Departament;
+use ACdev\UruguayNoma\Models\Location;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class UruguayNomaCommand extends Command
 {
     public $signature = 'uruguay-noma';
 
-	protected $description = '¡¡URUGUAY NO MA!!';
+    public $description = '¡¡URUGUAY NO MA!!';
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
+    public function handle(): int
+    {
+        $departaments = Storage::disk('local')->path('seed_departamentos.csv');
 
-	public function handle()
-	{
-		$departaments = Storage::disk('local')->path('seed_departamentos.csv');
+        if (($handle = fopen($departaments, 'r')) !== false) {
 
-		if (($handle = fopen($departaments, 'r')) !== FALSE) {
+            $this->info('Esto tardará un poco... ');
 
-			$this->info('Esto tardará un poco... ');
+            while (($data = fgetcsv($handle, 0, ',')) !== false) {
 
-			while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
+                Departament::create([
+                    'name' => Str::upper($data[1]),
+                    'slug' => Str::slug($data[1], '-'),
+                ]);
+            }
+            fclose($handle);
+            $this->info('Se han importado todos los departamentos...');
+        }
 
-				Departament::create([
-					'name' => Str::upper($data[1]),
-					'slug' => Str::slug($data[1], '-')
-				]);
-			}
-			fclose($handle);
-			$this->info('Se han importado todos los departamentos...');
-		}
+        $locations = Storage::disk('local')->path('seed_localidades.csv');
 
+        if (($handle = fopen($locations, 'r')) !== false) {
 
-		$locations = Storage::disk('local')->path('seed_localidades.csv');
+            $this->info('Esto tardará un poco... ');
 
-		if (($handle = fopen($locations, 'r')) !== FALSE) {
+            while (($data = fgetcsv($handle, 0, ',')) !== false) {
 
-			$this->info('Esto tardará un poco... ');
+                Location::firstOrCreate([
+                    'departament_id' => $data[0],
+                    'name' => $data[1],
+                    'cp' => $data[2],
+                    'slug' => Str::slug($data[1], '-'),
+                ]);
+            }
+            fclose($handle);
+            $this->info('Se han importado todas las localidades...');
+        }
 
-			while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
-
-				Location::firstOrCreate([
-					'departament_id' 	=> $data[0],
-					'name'            	=> $data[1],
-					'cp'              	=> $data[2],
-					'slug' 				=> Str::slug($data[1], '-')
-				]);
-			}
-			fclose($handle);
-			$this->info('Se han importado todas las localidades...');
-		}
-	}
+        return self::SUCCESS;
+    }
 }
